@@ -1,0 +1,18 @@
+defaults: &defaults
+  host: 127.0.0.1
+  port: 27017
+
+development:
+  <<: *defaults
+  database: geocraft_development
+
+test:
+  <<: *defaults
+  database: geocraft_test
+
+# set these environment variables on your prod server
+production:
+  <<: *defaults
+  database: geocraft
+  username: <%= ENV['MONGO_USERNAME'] %>
+  password: <%= ENV['MONGO_PASSWORD'] %>

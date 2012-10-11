@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Aggregate:</b>
+  <%= @etsy_sales_aggregate.aggregate %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @etsy_sales_aggregate.quantity %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @etsy_sales_aggregate.value %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @etsy_sales_aggregate.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @etsy_sales_aggregate.state %>
+</p>
+
+<p>
+  <b>Zip:</b>
+  <%= @etsy_sales_aggregate.zip %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%= @etsy_sales_aggregate.country_id %>
+</p>
+
+<p>
+  <b>Country name:</b>
+  <%= @etsy_sales_aggregate.country_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_etsy_sales_aggregate_path(@etsy_sales_aggregate) %> |
+<%= link_to 'Back', etsy_sales_aggregates_path %>

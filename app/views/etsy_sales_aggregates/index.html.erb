@@ -1,0 +1,37 @@
+<h1>Listing etsy_sales_aggregates</h1>
+
+<table>
+  <tr>
+    <th>Aggregate</th>
+    <th>Quantity</th>
+    <th>Value</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip</th>
+    <th>Country</th>
+    <th>Country name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @etsy_sales_aggregates.each do |etsy_sales_aggregate| %>
+  <tr>
+    <td><%= etsy_sales_aggregate.aggregate %></td>
+    <td><%= etsy_sales_aggregate.quantity %></td>
+    <td><%= etsy_sales_aggregate.value %></td>
+    <td><%= etsy_sales_aggregate.city %></td>
+    <td><%= etsy_sales_aggregate.state %></td>
+    <td><%= etsy_sales_aggregate.zip %></td>
+    <td><%= etsy_sales_aggregate.country_id %></td>
+    <td><%= etsy_sales_aggregate.country_name %></td>
+    <td><%= link_to 'Show', etsy_sales_aggregate %></td>
+    <td><%= link_to 'Edit', edit_etsy_sales_aggregate_path(etsy_sales_aggregate) %></td>
+    <td><%= link_to 'Destroy', etsy_sales_aggregate, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Etsy sales aggregate', new_etsy_sales_aggregate_path %>
