@@ -1,0 +1,6 @@
+{"type":"FeatureCollection","features":[
+{"type":"Feature","id":"01","geometry":{"type":"Point","coordinates":[-74.0064, 40.7142]},"properties":{"name":"New York"}},
+{"type":"Feature","id":"01","geometry":{"type":"Point","coordinates":[-122.4183, 37.7750]},"properties":{"name":"San Francisco"}},
+{"type":"Feature","id":"01","geometry":{"type":"Point","coordinates":[-122.3331, 47.6097]},"properties":{"name":"Seattle"}},
+{"type":"Feature","id":"01","geometry":{"type":"Point","coordinates":[-95.3631, 29.7631]},"properties":{"name":"Houston"}}
+]}
