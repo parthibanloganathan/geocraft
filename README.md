@@ -3,7 +3,7 @@ Geocraft: Visualizing Etsy Product Shipping
 
 An app made\* by:
 - Jonathan Packer
-- [enter name here]
+- Antony Qian
 - [enter name here]
 - [enter name here]
 
