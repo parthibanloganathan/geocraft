@@ -2,7 +2,6 @@ class SalesAggregate
   include Mongoid::Document
   
     field :tag, type: String
-    
     field :qty, type: Integer
     field :value, type: BigDecimal
     

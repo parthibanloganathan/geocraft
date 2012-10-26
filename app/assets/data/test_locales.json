@@ -1,0 +1,6 @@
+[
+    { "name": "New York City", "type": "city", "lat": 40.7142, "long": -74.0064 },
+    { "name": "San Francisco", "type": "city", "lat": 37.7750, "long": -122.4183 },
+    { "name": "Seattle", "type": "city", "lat": 47.6097, "long": -122.3331 },
+    { "name": "Houston", "type": "city", "lat": 29.7631, "long": -95.3631 }
+]

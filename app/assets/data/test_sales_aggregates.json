@@ -1,0 +1,66 @@
+[
+    { 
+        "tag": "clothing", "qty": 20, "value": 100, 
+        "made_in": "New York City", "sold_in": "New York City"
+    },
+    { 
+        "tag": "clothing", "qty": 40, "value": 200, 
+        "made_in": "New York City", "sold_in": "San Francisco"
+    },
+    { 
+        "tag": "clothing", "qty": 25, "value": 120, 
+        "made_in": "New York City", "sold_in": "Seattle"
+    },
+    { 
+        "tag": "clothing", "qty": 15, "value": 75, 
+        "made_in": "New York City", "sold_in": "Houston"
+    },
+    { 
+        "tag": "clothing", "qty": 30, "value": 240, 
+        "made_in": "Seattle", "sold_in": "New York City"
+    },
+    { 
+        "tag": "clothing", "qty": 20, "value": 150, 
+        "made_in": "Seattle", "sold_in": "San Francisco"
+    },
+    { 
+        "tag": "clothing", "qty": 15, "value": 120, 
+        "made_in": "Seattle", "sold_in": "Seattle"
+    },
+    { 
+        "tag": "clothing", "qty": 10, "value": 90, 
+        "made_in": "Seattle", "sold_in": "Houston"
+    },
+    { 
+        "tag": "artwork", "qty": 40, "value": 200, 
+        "made_in": "New York City", "sold_in": "New York City"
+    },
+    { 
+        "tag": "artwork", "qty": 25, "value": 250, 
+        "made_in": "New York City", "sold_in": "San Francisco"
+    },
+    { 
+        "tag": "artwork", "qty": 40, "value": 400, 
+        "made_in": "New York City", "sold_in": "Settle"
+    },
+    { 
+        "tag": "artwork", "qty": 15, "value": 150, 
+        "made_in": "New York City", "sold_in": "Houston"
+    },
+    { 
+        "tag": "artwork", "qty": 20, "value": 300, 
+        "made_in": "San Francisco", "sold_in": "New York City"
+    },
+    { 
+        "tag": "artwork", "qty": 15, "value": 240, 
+        "made_in": "San Francisco", "sold_in": "San Francisco"
+    },
+    { 
+        "tag": "artwork", "qty": 10, "value": 180, 
+        "made_in": "San Francisco", "sold_in": "Seattle"
+    },
+    { 
+        "tag": "artwork", "qty": 30, "value": 480, 
+        "made_in": "San Francisco", "sold_in": "Houston"
+    }
+]
