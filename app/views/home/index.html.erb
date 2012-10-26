@@ -16,8 +16,8 @@
 }
 
 #arcs path {
-  fill: red;
-  fill-opacity: 0.6;
+  fill: none;
+  stroke: red;
 }
 
 </style>
@@ -69,23 +69,19 @@ d3.json("data/contiguous-us-counties.json", function(collection) {
 d3.json("sales_aggregates/links.json?tag=clothing", function(response) {
     var links = [];
 
-    console.log(response);
-
     response.forEach(function(sales_agg) {
-        console.log(sales_agg);
         if (sales_agg.made_in != sales_agg.sold_in) {
-            links.push({
-                source: sales_agg.source,
-                target: sales_agg.target
-            });
+            links.push(sales_agg);
         }
     });
+    
+    console.log(links);
   
     arcs.selectAll("path")
         .data(links)
         .enter().append("path")
         .attr("d", function(d) { return path(arc(d)); })
-        .attr("stroke-width", function (d) { return d.qty / 5.0 } );
+        .style("stroke-width", function (d) { return d.value / 20.0;  } );
 });
 
 </script>
