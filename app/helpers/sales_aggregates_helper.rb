@@ -1,0 +1,2 @@
+module SalesAggregatesHelper
+end

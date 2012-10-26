@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
-gem 'mongo_mapper'
+gem 'mongoid'
 gem 'bson_ext'
+gem 'jbuilder'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

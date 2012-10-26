@@ -3,14 +3,21 @@
 
 #states path {
   fill: #ddd;
-  stroke: #fff;
+  stroke: #000;
+  stroke-width: 1.0px;
+  stroke-opacity: 0.4;
+}
+
+#counties path {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1.0px;
+  stroke-opacity: 0.1;
 }
 
 #arcs path {
-  fill: none;
-  stroke: #000;
-  stroke-width: .5px;
-  stroke-opacity: .2;
+  fill: red;
+  fill-opacity: 0.6;
 }
 
 </style>
@@ -18,18 +25,14 @@
 
 <script type="text/javascript">
 
-var width = 960,
-    height = 500;
+var scale = 1.25;
 
-/*
-var projection = d3.geo.azimuthal()
-    .origin([-115, 50])
-    .scale(500);
-*/
-    
+var width = 960 * scale,
+    height = 500 * scale;
+  
 var projection = d3.geo.albersUsa()
-    .scale(1000)
-    .translate([480, 250]);
+    .scale(1000 * scale)
+    .translate([480 * scale, 250 * scale]);
 
 var path = d3.geo.path()
     .projection(projection);
@@ -42,6 +45,9 @@ var svg = d3.select("body").append("svg")
 
 var states = svg.append("g")
     .attr("id", "states");
+    
+var counties = svg.append("g")
+    .attr("id", "counties");
 
 var arcs = svg.append("g")
     .attr("id", "arcs");
@@ -53,25 +59,33 @@ d3.json("data/contiguous-us-states.json", function(collection) {
       .attr("d", path);
 });
 
-d3.json("data/test-arcs.json", function(collection) {
-  var links = [];
-
-  // Create a link between each state centroid.
-  collection.features.forEach(function(a) {
-    collection.features.forEach(function(b) {
-      if (a !== b) {
-        links.push({
-          source: a.geometry.coordinates,
-          target: b.geometry.coordinates
-        });
-      }
-    });
-  });
-  
-  arcs.selectAll("path")
-      .data(links)
+d3.json("data/contiguous-us-counties.json", function(collection) {
+  counties.selectAll("path")
+      .data(collection.features)
     .enter().append("path")
-      .attr("d", function(d) { return path(arc(d)); });
+      .attr("d", path);
+});
+
+d3.json("sales_aggregates/links.json?tag=clothing", function(response) {
+    var links = [];
+
+    console.log(response);
+
+    response.forEach(function(sales_agg) {
+        console.log(sales_agg);
+        if (sales_agg.made_in != sales_agg.sold_in) {
+            links.push({
+                source: sales_agg.source,
+                target: sales_agg.target
+            });
+        }
+    });
+  
+    arcs.selectAll("path")
+        .data(links)
+        .enter().append("path")
+        .attr("d", function(d) { return path(arc(d)); })
+        .attr("stroke-width", function (d) { return d.qty / 5.0 } );
 });
 
 </script>

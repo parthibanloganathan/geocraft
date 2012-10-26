@@ -4,6 +4,7 @@ class StaticDataController < ApplicationController
     @@world_countries = File.read(@@json_path + "world-countries.geo.json")
     
     @@us_states = File.read(@@json_path + "us-states.geo.json")
+    
     @@contiguous_us_states = 
         File.read(@@json_path + "contiguous-us-states.geo.json")
         
@@ -11,6 +12,9 @@ class StaticDataController < ApplicationController
         File.read(@@json_path + "us-state-centroids.geo.json")
         
     @@us_counties = File.read(@@json_path + "us-counties.geo.json")
+    
+    @@contiguous_us_counties = 
+        File.read(@@json_path + "contiguous-us-counties.geo.json")
     
     @@test_arcs = File.read(@@json_path + "test-arcs.geo.json")
     
@@ -33,6 +37,10 @@ class StaticDataController < ApplicationController
     
     def us_counties
         render :json => @@us_counties
+    end
+    
+    def contiguous_us_counties
+        render :json => @@contiguous_us_counties
     end
     
     def test_arcs
