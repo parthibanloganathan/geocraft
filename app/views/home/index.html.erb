@@ -4,10 +4,10 @@
         <button type="button">Value of Transactions</button>
     </div>
     
-    <select>
-  <option value="clothing">Clothing</option>
-  <option value="artwork">Artwork</option>
-</select>
+    <select id="tag_name">
+	  <option value="clothing">Clothing</option>
+	  <option value="artwork">Artwork</option>
+	</select>
 
 </form>
 
@@ -17,6 +17,9 @@
 
 $(document).ready(function() {
     geocraft.home()
+    $('#tag_name').change(function(){
+    	var tag_name = $(this).find('option:selected').val()  
+    })
 });
 
 </script>
