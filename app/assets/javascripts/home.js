@@ -1,5 +1,18 @@
 geocraft = {}
 
+geocraft.wideArc = function (arc, wmax, lambda) {
+    var arcPoly = {
+        coordinates: []
+    };
+    
+    var upCoords = [];      // normal the original arc
+    var downCoords = [];    // anti-normal the original arc
+    
+    arc.coordinates.forEach(function(point) {
+        console.log(point);
+    });
+}
+
 geocraft.home = function () {
     var scale = 1.25;
 
@@ -54,7 +67,7 @@ geocraft.home = function () {
         arcs.selectAll("path")
             .data(links)
             .enter().append("path")
-            .attr("d", function(d) { return path(arc(d)); })
+            .attr("d", function(d) { geocraft.wideArc(arc(d), 5.0, 2.0); return path(arc(d)); })
             .style("stroke-width", function (d) { return d.value / 20.0;  } );
     });
 }

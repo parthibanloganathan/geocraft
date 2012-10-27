@@ -16,4 +16,5 @@ Geocraft::Application.routes.draw do
   match "/data/test-arcs" => "static_data#test_arcs"
 
   root :to => "home#index"
+
 end
