@@ -1,12 +1,33 @@
 <form>
     <div class="arc-width-buttons">
-        <button type="button">Quantity of Transactions</button>
-        <button type="button">Value of Transactions</button>
+        <button id="arc_qty_button" type="button">Quantity of Transactions</button>
+        <button id="arc_value_button" type="button">Value of Transactions</button>
     </div>
 </form>
 
 <script type="text/javascript">
 
-geocraft.home()
+
+$(document).ready(function () {
+
+    geocraft.home.init();
+    geocraft.home.render();
+    
+    /*
+    $('#arc_qty_button').click(
+        geocraft.home.arcAttribute("stroke-width", function(d) {
+            return d.qty / 5.0;
+        })
+    );
+    
+    $('#arc_value_button').click(
+        geocraft.home.arcAttribute("stroke-width", function(d) {
+            return d.value / 20.0;
+        })
+    );
+    */
+
+});
+
 
 </script>
