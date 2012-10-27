@@ -1,4 +1,4 @@
-geocraft = {}
+var geocraft = {};
 
 geocraft.home = function () {
     var scale = 1.25;
@@ -57,4 +57,4 @@ geocraft.home = function () {
             .attr("d", function(d) { return path(arc(d)); })
             .style("stroke-width", function (d) { return d.value / 20.0;  } );
     });
-}
+};
