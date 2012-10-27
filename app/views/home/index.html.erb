@@ -13,25 +13,25 @@
 
 <script type="text/javascript">
 
-$(document).ready(function () {
+$(document).ready(function() {
 
     geocraft.home.init();
     geocraft.home.render();
-    $('#tag_name').change(function(){
-    	var tag_name = $(this).find('option:selected').val()  
-    })
-    /*
-    $('#arc_qty_button').click(
-        geocraft.home.arcAttribute("stroke-width", function(d) {
+
+    $('#arc_qty_button').click(function() {
+        geocraft.home.arcStyle("stroke-width", function(d) {
             return d.qty / 5.0;
-        })
-    );
+        });
+    });
     
-    $('#arc_value_button').click(
-        geocraft.home.arcAttribute("stroke-width", function(d) {
+    $('#arc_value_button').click(function() {
+        geocraft.home.arcStyle("stroke-width", function(d) {
             return d.value / 20.0;
-        })
-    );
-    */
+        });
+    });
+    
+    $('#tag_name').change(function() {
+    	var tag_name = $(this).find('option:selected').val();
+    });
 });
 </script>
