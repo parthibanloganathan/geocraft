@@ -1,5 +1,14 @@
 var geocraft = {};
 
+geocraft.home = {
+    scale: 1.25,
+    
+    init: function() {
+        this.width = 960 * this.scale;
+        this.height = 500 * this.scale;
+    }
+}
+
 geocraft.wideArc = function (arc, wmax, lambda) {
     var arcPoly = {
         coordinates: []
@@ -13,24 +22,20 @@ geocraft.wideArc = function (arc, wmax, lambda) {
     });
 }
 
-geocraft.home = function () {
-    var scale = 1.25;
-
-    var width = 960 * scale,
-        height = 500 * scale;
-      
+geocraft.home.render = function () {
     var projection = d3.geo.albersUsa()
-        .scale(1000 * scale)
-        .translate([480 * scale, 250 * scale]);
+        .scale(1000 * this.scale)
+        .translate([480 * this.scale, 250 * this.scale]);
 
     var path = d3.geo.path()
         .projection(projection);
 
     var arc = d3.geo.greatArc();
 
+    console.log(this.width);
     var svg = d3.select("body").append("svg")
-        .attr("width", width)
-        .attr("height", height);
+        .attr("width", this.width)
+        .attr("height", this.height);
 
     var states = svg.append("g")
         .attr("id", "states");
@@ -67,7 +72,7 @@ geocraft.home = function () {
         arcs.selectAll("path")
             .data(links)
             .enter().append("path")
-            .attr("d", function(d) { geocraft.wideArc(arc(d), 5.0, 2.0); return path(arc(d)); })
+            .attr("d", function(d) { /* geocraft.wideArc(arc(d), 5.0, 2.0); */ return path(arc(d)); })
             .style("stroke-width", function (d) { return d.value / 20.0;  } );
     });
 };
