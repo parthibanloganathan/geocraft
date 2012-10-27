@@ -1,4 +1,4 @@
-geocraft = {}
+var geocraft = {};
 
 geocraft.wideArc = function (arc, wmax, lambda) {
     var arcPoly = {
@@ -70,4 +70,4 @@ geocraft.home = function () {
             .attr("d", function(d) { geocraft.wideArc(arc(d), 5.0, 2.0); return path(arc(d)); })
             .style("stroke-width", function (d) { return d.value / 20.0;  } );
     });
-}
+};
