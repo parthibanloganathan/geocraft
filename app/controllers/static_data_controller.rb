@@ -1,49 +1,33 @@
 class StaticDataController < ApplicationController
     @@json_path = Rails.root.to_s + "/app/assets/data/"
     
-    @@world_countries = File.read(@@json_path + "world-countries.geo.json")
-    
-    @@us_states = File.read(@@json_path + "us-states.geo.json")
-    
-    @@contiguous_us_states = 
-        File.read(@@json_path + "contiguous-us-states.geo.json")
-        
-    @@us_state_centroids = 
-        File.read(@@json_path + "us-state-centroids.geo.json")
-        
-    @@us_counties = File.read(@@json_path + "us-counties.geo.json")
-    
-    @@contiguous_us_counties = 
-        File.read(@@json_path + "contiguous-us-counties.geo.json")
-    
-    @@test_arcs = File.read(@@json_path + "test-arcs.geo.json")
-    
-
     def world_countries
-        render :json => @@world
+        countries = File.read(@@json_path + "world-countries.geo.json")
+        render :json => countries
     end
     
     def us_states
-        render :json => @@us_states
+        states = File.read(@@json_path + "us-states.geo.json")
+        render :json => states
     end
     
     def contiguous_us_states
-        render :json => @@contiguous_us_states
+        states = File.read(@@json_path + "contiguous-us-states.geo.json")
+        render :json => states
     end
     
     def us_state_centroids
-        render :json => @@us_state_centroids
+        centroids = File.read(@@json_path + "us-state-centroids.geo.json")
+        render :json => centroids
     end
     
     def us_counties
-        render :json => @@us_counties
+        counties = File.read(@@json_path + "us-conties.geo.json")
+        render :json => counties
     end
     
     def contiguous_us_counties
-        render :json => @@contiguous_us_counties
-    end
-    
-    def test_arcs
-        render :json => @@test_arcs
+        counties = File.read(@@json_path + "contiguous-us-counties.geo.json")
+        render :json => counties
     end
 end
