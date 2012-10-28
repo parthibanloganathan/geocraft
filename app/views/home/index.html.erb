@@ -8,30 +8,27 @@
 	  <option value="clothing">Clothing</option>
 	  <option value="artwork">Artwork</option>
 	</select>
-
 </form>
 
 <script type="text/javascript">
 
 $(document).ready(function() {
-
+    
     geocraft.home.init();
     geocraft.home.render();
 
     $('#arc_qty_button').click(function() {
-        geocraft.home.arcStyle("stroke-width", function(d) {
-            return d.qty / 5.0;
-        });
+        geocraft.home.arcWidth("qty", 0.025);
     });
     
     $('#arc_value_button').click(function() {
-        geocraft.home.arcStyle("stroke-width", function(d) {
-            return d.value / 20.0;
-        });
+        geocraft.home.arcWidth("value", 0.005);
     });
     
     $('#tag_name').change(function() {
     	var tag_name = $(this).find('option:selected').val();
     });
+    
 });
+
 </script>

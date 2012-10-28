@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require d3.v2.js
+//= require Vector2D
+//= require geocraft
 //= require_tree .
