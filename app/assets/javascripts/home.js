@@ -1,7 +1,7 @@
 geocraft.home = {
     scale: 1.25,
     arcPrecision: 0.5, // closer to zero is more precise
-    wideArcLambda: 0.5, // Lower is wider, higher is pointier
+    wideArcLambda: 0.6, // Lower is wider, higher is pointier
     
     init: function() {
         this.width = 960 * this.scale;
@@ -63,10 +63,12 @@ geocraft.home.render = function () {
             .data(links)
             .enter().append("path")
             .attr("d", function(d) { 
-                var arcPoly = geocraft.wideArc(
-                    self.arc(d), 0.005 * d.value, self.wideArcLambda
+                var arcPath = self.path(self.arc(d));
+                
+                var polyPath = d3_utils.wideArc(
+                    arcPath, 0.1 * d.value, self.wideArcLambda
                 );
-                var polyPath = self.path(arcPoly);
+                
                 return polyPath;
             });
     });
@@ -77,10 +79,9 @@ geocraft.home.arcWidth = function(dataAttr, width) {
     
     this.arcs.selectAll("path")
         .attr("d", function(d) {
-            return self.path(
-                geocraft.wideArc(
-                    self.arc(d), width * d[dataAttr], self.wideArcLambda
-                )
+            return d3_utils.wideArc(
+                self.path(self.arc(d)),
+                width * d[dataAttr], self.wideArcLambda
             );
         });
 };
