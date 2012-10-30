@@ -1,6 +1,8 @@
 Geocraft::Application.routes.draw do
 
-  resources :locales
+  resources :locales do
+    collection { get 'stats' }
+  end
   
   resources :sales_aggregates do
     collection { get 'links' }

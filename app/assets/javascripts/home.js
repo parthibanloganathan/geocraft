@@ -53,7 +53,7 @@ geocraft.home.render = function () {
     d3.json("sales_aggregates/links.json?tag=clothing", function(response) {
         var links = [];
 
-        response.forEach(function(sales_agg) {
+        response.links.forEach(function(sales_agg) {
             if (sales_agg.made_in != sales_agg.sold_in) {
                 links.push(sales_agg);
             }
