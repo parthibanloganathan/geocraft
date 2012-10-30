@@ -43,7 +43,7 @@ class SalesAggregatesController < ApplicationController
                 or({ made_in: locale}, { sold_in: locale })
         end
         
-        sort_by = nil
+        sort_by = :value
         if params.has_key?(:sort_by)
             if params[:sort_by] == "qty"
                 sort_by = :qty
@@ -62,8 +62,8 @@ class SalesAggregatesController < ApplicationController
                 }}
             elsif sort_by == :value
                 map = %Q{ function() { 
-                    emit(this.made_in_id, { buys: 0, sells: parseFloat(this.value) }); 
-                    emit(this.sold_in_id, { buys: parseFloat(this.value), sells: 0 });
+                    emit(this.made_in_id, { buys: 0, sells: this.value }); 
+                    emit(this.sold_in_id, { buys: this.value, sells: 0 });
                 }}
             end
             

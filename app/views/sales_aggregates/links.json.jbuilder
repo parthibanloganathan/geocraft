@@ -1,7 +1,7 @@
 json.links @sales_aggregates.each do |agg|
     json.tag agg.tag
     json.qty agg.qty
-    json.value agg.value.to_f
+    json.value agg.value
     
     json.made_in agg.made_in.name
     json.sold_in agg.sold_in.name
