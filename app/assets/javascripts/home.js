@@ -20,6 +20,33 @@ geocraft.home = {
     }
 }
 
+geocraft.home.drawArcs = function(api_url) {
+    var self = this;
+
+    d3.json(api_url, function(response) {
+        var links = [];
+
+        response.links.forEach(function(sales_agg) {
+            if (sales_agg.made_in != sales_agg.sold_in) {
+                links.push(sales_agg);
+            }
+        });
+      
+        self.arcs.selectAll("path")
+            .data(links)
+            .enter().append("path")
+            .attr("d", function(d) { 
+                var arcPath = self.path(self.arc(d));
+                
+                var polyPath = d3_utils.wideArc(
+                    arcPath, 0.1 * d.value, self.wideArcLambda
+                );
+                
+                return polyPath;
+            });
+    });
+};
+
 geocraft.home.render = function () {
     var self = this;
     
@@ -50,28 +77,14 @@ geocraft.home.render = function () {
           .attr("d", self.path);
     });
 
-    d3.json("sales_aggregates/links.json?tag=clothing", function(response) {
-        var links = [];
+    this.drawArcs("sales_aggregates/links.json?tag=clothing");
+};
 
-        response.links.forEach(function(sales_agg) {
-            if (sales_agg.made_in != sales_agg.sold_in) {
-                links.push(sales_agg);
-            }
-        });
-      
-        self.arcs.selectAll("path")
-            .data(links)
-            .enter().append("path")
-            .attr("d", function(d) { 
-                var arcPath = self.path(self.arc(d));
-                
-                var polyPath = d3_utils.wideArc(
-                    arcPath, 0.1 * d.value, self.wideArcLambda
-                );
-                
-                return polyPath;
-            });
-    });
+geocraft.home.selectTag = function(tag) {
+    var self = this;
+
+    this.arcs.selectAll("path").remove();
+    this.drawArcs("sales_aggregates/links.json?tag=" + tag);
 };
 
 geocraft.home.arcWidth = function(dataAttr, width) {
