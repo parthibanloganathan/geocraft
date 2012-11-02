@@ -20,20 +20,31 @@ if not @locales.nil?
         json.name Locale.find(loc["_id"]).name
         json.lat loc["value"]["lat"]
         json.long loc["value"]["long"]
-        json.buys loc["value"]["buys"]
-        json.sells loc["value"]["sells"]
+        json.qty_bought loc["value"]["qty_bought"]
+        json.qty_sold loc["value"]["qty_sold"]
+        json.value_bought loc["value"]["value_bought"]
+        json.value_sold loc["value"]["value_sold"]
     end
 end
 
 if not @totals.nil?
     json.totals do
-        json.purchases @totals["purchases"]
-        json.sales @totals["sales"]
-        if not @totals["local_purchases"].nil?
-            json.local_purchases @totals["local_purchases"]
+        if not @totals["global"].nil?
+            json.global do
+                json.qty_bought @totals["global"]["qty_bought"]
+                json.qty_sold @totals["global"]["qty_sold"]
+                json.value_bought @totals["global"]["value_bought"]
+                json.value_sold @totals["global"]["value_sold"]
+            end
         end
-        if not @totals["local_sales"].nil?
-            json.local_sales @totals["local_sales"]
+
+        if not @locale.nil?
+            json.local do
+                json.qty_bought @totals["local"]["qty_bought"]
+                json.qty_sold @totals["local"]["qty_sold"]
+                json.value_bought @totals["local"]["value_bought"]
+                json.value_sold @totals["local"]["value_sold"]
+            end
         end
     end
 end

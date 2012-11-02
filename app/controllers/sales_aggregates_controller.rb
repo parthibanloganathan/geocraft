@@ -35,12 +35,12 @@ class SalesAggregatesController < ApplicationController
             @sales_aggregates = @sales_aggregates.where(tag: params[:tag])
         end
     
-        locale = nil
+        @locale = nil
         if params.has_key?(:locale)
-            locale = Locale.find_by(name: params[:locale])
+            @locale = Locale.find_by(name: params[:locale])
         
             @sales_aggregates = @sales_aggregates.
-                or({ made_in: locale}, { sold_in: locale })
+                or({ made_in: @locale}, { sold_in: @locale })
         end
         
         sort_by = :value
@@ -54,30 +54,29 @@ class SalesAggregatesController < ApplicationController
         
         @locales = nil
         @totals = nil
-        if (params.has_key?(:tag) or not locale.nil?) and not sort_by.nil?
-            if sort_by == :qty
-                map = %Q{ function() { 
-                    emit(this.made_in_id, { buys: 0, sells: this.qty }); 
-                    emit(this.sold_in_id, { buys: this.qty, sells: 0 });
-                }}
-            elsif sort_by == :value
-                map = %Q{ function() { 
-                    emit(this.made_in_id, { buys: 0, sells: this.value }); 
-                    emit(this.sold_in_id, { buys: this.value, sells: 0 });
-                }}
-            end
+        if (params.has_key?(:tag) or not @locale.nil?)
+            map = %Q{ function() { 
+                emit(this.made_in_id, { qty_bought: 0, qty_sold: this.qty, value_bought: 0.0, value_sold: this.value }); 
+                emit(this.sold_in_id, { qty_bought: this.qty, qty_sold: 0, value_bought: this.value, value_sold: 0 }); 
+            }}
             
             reduce = %Q{
                 function(key, values) {
-                    var buys = 0;
-                    var sells = 0;
+                    var result = {
+                        qty_bought: 0,
+                        qty_sold: 0,
+                        value_bought: 0,
+                        value_sold: 0.0
+                    };
                     
                     values.forEach(function(value) {
-                        buys += value.buys;
-                        sells += value.sells;
+                        result.qty_bought += value.qty_bought;
+                        result.qty_sold += value.qty_sold;
+                        result.value_bought += value.value_bought;
+                        result.value_sold += value.value_sold;
                     });
                     
-                    return { buys: buys, sells: sells };
+                    return result;
                 }
             }
         
@@ -85,20 +84,29 @@ class SalesAggregatesController < ApplicationController
                 map_reduce(map, reduce).
                 out(inline: true)
             
-            purchases = 0.0
-            sales = 0.0
-            local_purchases = nil
-            local_sales = nil
-            
+            qty_bought = 0
+            qty_sold = 0
+            value_bought = 0.0
+            value_sold = 0.0
+
+            local_qty_bought = 0
+            local_value_bought = 0.0
+            local_qty_sold = 0
+            local_value_sold = 0.0
+
             @locales.each do |loc|
                 db_loc = Locale.find(loc["_id"])
                 
-                purchases += loc["value"]["buys"]
-                sales += loc["value"]["sells"]
+                qty_bought += loc["value"]["qty_bought"]
+                qty_sold += loc["value"]["qty_sold"]
+                value_bought += loc["value"]["value_bought"]
+                value_sold += loc["value"]["value_sold"]
                 
-                if not locale.nil? and db_loc == locale
-                    local_purchases = loc["value"]["buys"]
-                    local_sales = loc["value"]["sells"]
+                if not @locale.nil? and db_loc == @locale
+                    local_qty_bought = loc["value"]["qty_bought"]
+                    local_qty_sold = loc["value"]["qty_sold"]
+                    local_value_bought = loc["value"]["value_bought"]
+                    local_value_sold = loc["value"]["value_sold"]
                 end
                 
                 loc["value"]["lat"] = db_loc.lat
@@ -106,10 +114,18 @@ class SalesAggregatesController < ApplicationController
             end
             
             @totals = Hash[
-                "purchases" => purchases,
-                "sales" => sales,
-                "local_purchases" => local_purchases,
-                "local_sales" => local_sales
+                "global" => Hash[
+                    "qty_bought" => qty_bought,
+                    "qty_sold" => qty_sold,
+                    "value_bought" => value_bought,
+                    "value_sold" => value_sold
+                ],
+                "local" => Hash[
+                    "qty_bought" => local_qty_bought,
+                    "qty_sold" => local_qty_sold,
+                    "value_bought" => local_value_bought,
+                    "value_sold" => local_value_sold
+                ]
             ]
         end
     
