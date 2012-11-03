@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.tokeninput
 //= require d3.v2
 //= require d3_utils
 //= require Vector2D

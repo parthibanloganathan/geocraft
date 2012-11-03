@@ -1,12 +1,14 @@
 Geocraft::Application.routes.draw do
 
-  resources :locales do
-    collection { get 'stats' }
-  end
-  
+  resources :locales
   resources :sales_aggregates do
+    collection { get 'tags' }
     collection { get 'links' }
   end
+
+  # Aliases for /sales_aggregates/[tags or links]
+  match "/tags" => "sales_aggregates#tags"
+  match "/links" => "sales_aggregates#links"
 
   # Hack to serve static json, see static_json_controller.rb
   match "/data/world-countries" => "static_data#world_countries"

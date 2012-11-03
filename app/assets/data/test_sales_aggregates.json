@@ -62,5 +62,17 @@
     { 
         "tag": "artwork", "qty": 30, "value": 480, 
         "made_in": "San Francisco", "sold_in": "Houston"
+    },
+    { 
+        "tag": "oriental art", "qty": 20, "value": 200, 
+        "made_in": "Houston", "sold_in": "Seattle"
+    },
+    { 
+        "tag": "men's clothing", "qty": 20, "value": 200, 
+        "made_in": "Houston", "sold_in": "New York City"
+    },
+    { 
+        "tag": "women's clothing", "qty": 20, "value": 200, 
+        "made_in": "Houston", "sold_in": "San Francisco"
     }
 ]

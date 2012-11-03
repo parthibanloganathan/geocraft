@@ -1,9 +1,11 @@
 <form>
-    <div class="arc-width-buttons">
-        <button id="arc_qty_button" type="button">Quantity of Transactions</button>
-        <button id="arc_value_button" type="button">Value of Transactions</button>
-    </div>
-    
+    <label for="scale_segmented_button">Scale by: </label>
+
+    <ul id="scale_segmented_button" class="segmented-button">
+      <li id="value_button" class="selected">Value</li><!-- Horrible HTML hack
+      --><li id="qty_button">Quantity</li>
+    </ul>​
+
     <select id="select_tag_button">
 	  <option value="clothing">Clothing</option>
 	  <option value="artwork">Artwork</option>
@@ -17,11 +19,16 @@ $(document).ready(function() {
     geocraft.home.init();
     geocraft.home.render();
 
-    $('#arc_qty_button').click(function() {
+    $(".segmented-button").click(function(event) {
+        $("li", this).removeClass("selected");
+        $(event.target).addClass("selected");
+    });
+
+    $('#qty_button').click(function() {
         geocraft.home.arcWidth("qty", 0.5);
     });
     
-    $('#arc_value_button').click(function() {
+    $('#value_button').click(function() {
         geocraft.home.arcWidth("value", 0.1);
     });
     

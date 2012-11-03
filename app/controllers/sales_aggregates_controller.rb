@@ -1,29 +1,39 @@
 class SalesAggregatesController < ApplicationController
-    respond_to :json
+    # GET /sales_aggregates/tags.json
+    # Alias: GET /tags.json
+    def tags
+        map = %Q{ function() { 
+            emit(this.tag, { qty: this.qty, value: this.value });
+        }}
+        
+        reduce = %Q{
+            function(key, values) {
+                var result = {
+                    qty: 0,
+                    value: 0.0
+                };
+                
+                values.forEach(function(value) {
+                    result.qty += value.qty;
+                    result.value += value.value;
+                });
+                
+                return result;
+            }
+        }
 
-    # GET /sales_aggregates
-    # GET /sales_aggregates.json
-    def index
-        @sales_aggregates = SalesAggregate.all
+        @tags = SalesAggregate.
+                    where(tag: /.*\b#{params[:q]}.*/).
+                    map_reduce(map, reduce).
+                    out(inline: true);
 
         respond_to do |format|
-            format.html # index.html.erb
-            format.json { render json: @sales_aggregates }
+            format.json # tags.json.jbuilder
         end
     end
 
-    # GET /sales_aggregates/1
-    # GET /sales_aggregates/1.json
-    def show
-        @sales_aggregate = SalesAggregate.find(params[:id])
-
-        respond_to do |format|
-            format.html # show.html.erb
-            format.json { render json: @sales_aggregate }
-        end
-    end  
-
     # GET /sales_aggregates/links.json
+    # Alias: GET /links.json
     def links
         @sales_aggregates = SalesAggregate
 
@@ -41,15 +51,6 @@ class SalesAggregatesController < ApplicationController
         
             @sales_aggregates = @sales_aggregates.
                 or({ made_in: @locale}, { sold_in: @locale })
-        end
-        
-        sort_by = :value
-        if params.has_key?(:sort_by)
-            if params[:sort_by] == "qty"
-                sort_by = :qty
-            elsif params[:sort_by] == "value"
-                sort_by = :value
-            end
         end
         
         @locales = nil
@@ -128,8 +129,14 @@ class SalesAggregatesController < ApplicationController
                 ]
             ]
         end
-    
-        if not sort_by.nil?
+
+        if params.has_key?(:sort_by)
+            if params[:sort_by] == "qty"
+                sort_by = :qty
+            elsif params[:sort_by] == "value"
+                sort_by = :value
+            end
+
             sort_dir = :desc
             if params.has_key?(:sort_dir) and params[:sort_dir] == "asc"
                 sort_dir = :asc

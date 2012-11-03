@@ -1,0 +1,54 @@
+.segmented-button
+{
+    display: inline;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.segmented-button > li
+{
+    margin-left: 0;
+    display: inline;
+    padding: 0.4em;
+
+    border: solid 1px;
+
+    text-align: center;
+
+    background-image:
+        -webkit-gradient(
+            linear, 
+            left top, left bottom,
+            from(#eee), to(#ccc)
+        );
+    background-image:
+        -moz-linear-gradient(90deg, #eee, #ccc);
+}
+
+.segmented-button > li:first-child
+{
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -moz-border-bottom-left-radius: 5px;
+    -moz-border-top-left-radius: 5px;
+}
+
+.segmented-button > li:last-child
+{
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    -moz-border-bottom-right-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+}
+
+.segmented-button > li.selected
+{
+    background-image:
+        -webkit-gradient(linear, left top, left bottom,
+            from(#33aaee),
+            to(#1188cc));
+    
+    background-image:
+        -moz-linear-gradient(90deg, #33aaee, #1188cc);
+
+}

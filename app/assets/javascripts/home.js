@@ -20,7 +20,7 @@ geocraft.home = {
     }
 }
 
-geocraft.home.drawArcs = function(api_url) {
+geocraft.home.drawArcs = function(api_url, dataAttr, widthMult) {
     var self = this;
 
     d3.json(api_url, function(response) {
@@ -31,19 +31,23 @@ geocraft.home.drawArcs = function(api_url) {
                 links.push(sales_agg);
             }
         });
-      
-        self.arcs.selectAll("path")
+        
+        if (self.arcs) {
+            self.arcs.selectAll("path")
             .data(links)
             .enter().append("path")
             .attr("d", function(d) { 
                 var arcPath = self.path(self.arc(d));
                 
                 var polyPath = d3_utils.wideArc(
-                    arcPath, 0.1 * d.value, self.wideArcLambda
+                    arcPath, d[dataAttr] * widthMult, self.wideArcLambda
                 );
                 
                 return polyPath;
             });
+        } else {
+            console.log("self.arcs does not exist");
+        }
     });
 };
 
@@ -77,24 +81,32 @@ geocraft.home.render = function () {
           .attr("d", self.path);
     });
 
-    this.drawArcs("sales_aggregates/links.json?tag=clothing");
+    this.drawArcs("sales_aggregates/links.json?tag=clothing", "value", 0.1);
 };
 
 geocraft.home.selectTag = function(tag) {
     var self = this;
 
+    var dataAttr = "value";
+    var widthMult = 0.1;
+
+    if ($("#qty_button").hasClass("selected")) {
+        dataAttr = "qty";
+        widthMult = 0.5;
+    }
+
     this.arcs.selectAll("path").remove();
-    this.drawArcs("sales_aggregates/links.json?tag=" + tag);
+    this.drawArcs("sales_aggregates/links.json?tag=" + tag, dataAttr, widthMult);
 };
 
-geocraft.home.arcWidth = function(dataAttr, width) {
+geocraft.home.arcWidth = function(dataAttr, widthMult) {
     var self = this;
     
     this.arcs.selectAll("path")
         .attr("d", function(d) {
             return d3_utils.wideArc(
                 self.path(self.arc(d)),
-                width * d[dataAttr], self.wideArcLambda
+                d[dataAttr] * widthMult, self.wideArcLambda
             );
         });
 };
