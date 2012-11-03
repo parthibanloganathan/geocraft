@@ -90,7 +90,7 @@ geocraft.home.selectTag = function(tag) {
     var dataAttr = "value";
     var widthMult = 0.1;
 
-    if ($("#qty_button").hasClass("selected")) {
+    if ($("#qty_button").attr("checked")) {
         dataAttr = "qty";
         widthMult = 0.5;
     }
