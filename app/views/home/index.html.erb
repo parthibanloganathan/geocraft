@@ -1,16 +1,29 @@
-<form>
-    <label for="scale_segmented_button">Scale by: </label>
+<div class="labeled-segmented-button">
+    <label for="scale_buttons" class="segmented-button-label">Type:</label>
+    <div ud="link_type_buttons" class="segmented-button">
+        <input id="category_button" type="radio" name="link_type_buttons" checked>
+        <label for="category_button" class="first">Categories</label>
 
-    <ul id="scale_segmented_button" class="segmented-button">
-      <li id="value_button" class="selected">Value</li><!-- Horrible HTML hack
-      --><li id="qty_button">Quantity</li>
-    </ul>​
+        <input id="tag_button" type="radio" name="link_type_buttons">
+        <label for="tag_button" class="last">Tags</label>
+    </div>
+</div>
 
-    <select id="select_tag_button">
-	  <option value="clothing">Clothing</option>
-	  <option value="artwork">Artwork</option>
-	</select>
-</form>
+<div class="labeled-segmented-button">
+    <label for="scale_buttons" class="segmented-button-label">Scale by:</label>
+    <div id="scale_buttons" class="segmented-button">
+      <input id="value_button" type="radio" name="scale_buttons" checked>
+      <label for="value_button" class="first">Value</label>
+
+      <input id="qty_button" type="radio" name="scale_buttons">
+      <label for="qty_button" class="last">Quantity</label>
+    </div>
+</div>
+
+<select id="select_tag_button">
+    <option value="clothing">Clothing</option>
+    <option value="artwork">Artwork</option>
+</select>
 
 <script type="text/javascript">
 
@@ -18,11 +31,6 @@ $(document).ready(function() {
     
     geocraft.home.init();
     geocraft.home.render();
-
-    $(".segmented-button").click(function(event) {
-        $("li", this).removeClass("selected");
-        $(event.target).addClass("selected");
-    });
 
     $('#qty_button').click(function() {
         geocraft.home.arcWidth("qty", 0.5);
