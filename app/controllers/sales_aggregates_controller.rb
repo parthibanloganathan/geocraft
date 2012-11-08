@@ -43,6 +43,9 @@ class SalesAggregatesController < ApplicationController
         
         if params.has_key?(:tag)
             @sales_aggregates = @sales_aggregates.where(tag: params[:tag])
+        elsif params.has_key?(:tags)
+            tags = params[:tags].split(/,\s*/)
+            @sales_aggregates = @sales_aggregates.in(tag: tags)
         end
     
         @locale = nil
@@ -55,7 +58,7 @@ class SalesAggregatesController < ApplicationController
         
         @locales = nil
         @totals = nil
-        if (params.has_key?(:tag) or not @locale.nil?)
+        if (params.has_key?(:tag) or params.has_key?(:tags) or not @locale.nil?)
             map = %Q{ function() { 
                 emit(this.made_in_id, { qty_bought: 0, qty_sold: this.qty, value_bought: 0.0, value_sold: this.value }); 
                 emit(this.sold_in_id, { qty_bought: this.qty, qty_sold: 0, value_bought: this.value, value_sold: 0 }); 
