@@ -74,7 +74,7 @@ geocraft.home.render = function() {
           .attr("d", self.path);
     });
 
-    this.renderArcs("sales_aggregates/links.json?tag=clothing", "value", 0.1);
+    this.renderArcs("sales_aggregates/links.json?tag=clothing", "value");
 };
 
 geocraft.home.renderArcs = function(api_url, dataAttr) {
