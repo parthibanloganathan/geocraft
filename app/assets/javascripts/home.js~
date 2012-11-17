@@ -18,7 +18,7 @@ geocraft.home = {
             
         this.arc = d3.geo.greatArc()
                     .precision(this.arcPrecision);
-                                
+                    
     }
 }
 
@@ -96,10 +96,6 @@ geocraft.home.renderArcs = function(api_url, dataAttr) {
         // Else, reset the qty/value of all links, 
         // and flag everything for deletion,
         // unless the new results contain a link with the same key
-        
-        self.linksQueryResponse = response;
-
-		geocraft.home.drawTable(response);
 
         if (!self.links) {
             self.links = {};
@@ -213,42 +209,3 @@ geocraft.home.selectTag = function(tag) {
 
     this.renderArcs("sales_aggregates/links.json?tag=" + tag, dataAttr);
 };
-
-geocraft.home.drawTable = function(response) {
-	
-	//clears previous table
-	$('#sellers_table').find("tr:gt(0)").remove();
-	
-	var array = response.locales;
-	
-	//sorts array
-	array.sort(function(element1, element2) {
-		return element1.qty_bought < element2.qty_bought;
-	});
-
-	//gets top 5 entries and adds them to the table
-	for(var i=0; i<array.length && i<5; i++)
-	{
-		var row = {"elem":[array[i].name, array[i].qty_bought]};
-		geocraft.home.addRow(row);
-	}
-
-	/*array.forEach(function(element) {
-		var row = {"elem":[element.name, element.qty_bought]};
-		geocraft.home.addRow(row);
-	});*/
-}	
-
-geocraft.home.addRow = function(data) {
-	
-	//adds row
-	$('#sellers_table').find('tbody')
-					  .append($('<tr>')
-						.append($('<td>')
-							.text(data.elem[0])
-						)
-						.append($('<td>')
-							.text(data.elem[1])
-						)
-					)
-}

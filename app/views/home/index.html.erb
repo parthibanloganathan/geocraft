@@ -1,51 +1,73 @@
-<div class="labeled-segmented-button">
-    <label for="scale_buttons" class="segmented-button-label">Type:</label>
-    <div ud="link_type_buttons" class="segmented-button">
-        <input id="category_button" type="radio" name="link_type_buttons" checked>
-        <label for="category_button" class="first">Categories</label>
+<div id="main">
+	
+	<div id="logo">
+		<img src="/assets/geocraft.png" />
+	</div>	
+	
+	<div id="content_container">
+	<div id="content">
+	
+		<div class="labeled-segmented-button">
+			<label for="scale_buttons" class="segmented-button-label">Type:</label>
+			<div ud="link_type_buttons" class="segmented-button">
+				<input id="category_button" type="radio" name="link_type_buttons" checked>
+				<label for="category_button" class="first">Categories</label>
 
-        <input id="tag_button" type="radio" name="link_type_buttons">
-        <label for="tag_button" class="last">Tags</label>
-    </div>
+				<input id="tag_button" type="radio" name="link_type_buttons">
+				<label for="tag_button" class="last">Tags</label>
+			</div>
+		</div>
+
+		<div class="labeled-segmented-button">
+			<label for="scale_buttons" class="segmented-button-label">Scale by:</label>
+			<div id="scale_buttons" class="segmented-button">
+			  <input id="value_button" type="radio" name="scale_buttons" checked>
+			  <label for="value_button" class="first">Value</label>
+
+			  <input id="qty_button" type="radio" name="scale_buttons">
+			  <label for="qty_button" class="last">Quantity</label>
+			</div>
+		</div>
+		
+		<select id="select_tag_button">
+			<option value="clothing">Clothing</option>
+			<option value="artwork">Artwork</option>
+		</select>
+	
+	    <table id="sellers_table">
+			<tr>
+				<th>Top Sellers</th>
+				<th>Quantity Bought</th>
+			</tr>
+		</table>
+	</div>
+	</div>
+
+	<link href='http://fonts.googleapis.com/css?family=Anaheim' rel='stylesheet' type='text/css'>
+
+	<script type="text/javascript">
+
+	$(document).ready(function() {
+		
+		geocraft.home.init();
+		geocraft.home.render();
+
+		$('#qty_button').click(function() {
+			geocraft.home.arcWidth("qty");
+		});
+		
+		$('#value_button').click(function() {
+			geocraft.home.arcWidth("value");
+		});
+		
+		$('#select_tag_button').click(function() {
+			var tag = $(this).find('option:selected').val();
+
+			geocraft.home.selectTag(tag);
+		});
+		
+	});
+
+	</script>
+
 </div>
-
-<div class="labeled-segmented-button">
-    <label for="scale_buttons" class="segmented-button-label">Scale by:</label>
-    <div id="scale_buttons" class="segmented-button">
-      <input id="value_button" type="radio" name="scale_buttons" checked>
-      <label for="value_button" class="first">Value</label>
-
-      <input id="qty_button" type="radio" name="scale_buttons">
-      <label for="qty_button" class="last">Quantity</label>
-    </div>
-</div>
-
-<select id="select_tag_button">
-    <option value="clothing">Clothing</option>
-    <option value="artwork">Artwork</option>
-</select>
-
-<script type="text/javascript">
-
-$(document).ready(function() {
-    
-    geocraft.home.init();
-    geocraft.home.render();
-
-    $('#qty_button').click(function() {
-        geocraft.home.arcWidth("qty");
-    });
-    
-    $('#value_button').click(function() {
-        geocraft.home.arcWidth("value");
-    });
-    
-    $('#select_tag_button').click(function() {
-    	var tag = $(this).find('option:selected').val();
-
-        geocraft.home.selectTag(tag);
-    });
-    
-});
-
-</script>

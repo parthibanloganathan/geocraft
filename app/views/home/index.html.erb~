@@ -1,0 +1,34 @@
+<form>
+    <div class="arc-width-buttons">
+        <button id="arc_qty_button" type="button">Quantity of Transactions</button>
+        <button id="arc_value_button" type="button">Value of Transactions</button>
+    </div>
+    
+    <select id="tag_name">
+	  <option value="clothing">Clothing</option>
+	  <option value="artwork">Artwork</option>
+	</select>
+</form>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    
+    geocraft.home.init();
+    geocraft.home.render();
+
+    $('#arc_qty_button').click(function() {
+        geocraft.home.arcWidth("qty", 0.5);
+    });
+    
+    $('#arc_value_button').click(function() {
+        geocraft.home.arcWidth("value", 0.1);
+    });
+    
+    $('#tag_name').change(function() {
+    	var tag_name = $(this).find('option:selected').val();
+    });
+    
+});
+
+</script>

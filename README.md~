@@ -1,11 +1,13 @@
 Geocraft: Visualizing Etsy Product Shipping
 ===========================================
 
-An app made by:
+An app made\* by:
 - Jonathan Packer
 - Antony Qian
 - Parthiban Loganathan
-- Jessica Wang
+- [enter name here]
+
+\* app not actually made yet
 
 Note: if you need to populate your local DB with test data, use the following commands:
 - rake mongo_import_json:locales[app/assets/data/test_locales.json]
