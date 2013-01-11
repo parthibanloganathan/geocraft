@@ -51,13 +51,16 @@
 		
 		geocraft.home.init();
 		geocraft.home.render();
-
+		
 		$('#qty_button').click(function() {
 			geocraft.home.arcWidth("qty");
+			geocraft.home.drawCircles("sales_aggregates/links.json?tag=clothing", "qty");
 		});
 		
 		$('#value_button').click(function() {
 			geocraft.home.arcWidth("value");
+			geocraft.home.drawCircles("sales_aggregates/links.json?tag=clothing", "value");
+			
 		});
 		
 		$('#select_tag_button').click(function() {

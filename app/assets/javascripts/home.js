@@ -4,7 +4,7 @@ geocraft.home = {
     arcPrecision: 0.5,          // closer to zero is more precise
     wideArcLambda: 0.6,         // lower is wider, higher is pointier,
     arcTransitionDuration: 500, // in milliseconds
-    
+    circleTransitionDuration: 500,
     init: function() {
         this.width = 960 * this.scale;
         this.height = 500 * this.scale;
@@ -73,10 +73,49 @@ geocraft.home.render = function() {
         .enter().append("path")
           .attr("d", self.path);
     });
-
+	this.drawCircles("sales_aggregates/links.json?tag=clothing", "value");
     this.renderArcs("sales_aggregates/links.json?tag=clothing", "value");
 };
+geocraft.home.drawCircles = function(api_url, dataAttr)
+{
+   	    var self = this;     
+        
 
+d3.json(api_url, function (response){
+		var array = response.locales;
+		var svg = d3.select("svg");
+		var circles = svg.selectAll("circle")
+			.data(array)
+			.enter()
+			.append("circle");
+        if (!selector){
+		var selector = svg.selectAll("circle");}
+        var ease = "quad-in-out"; 
+       
+       
+        selector
+        .transition()
+        .duration(self.circleTransitionDuration)
+        .ease(ease)
+        .attr("cx", function(d) {
+			return self.projection([d.long, d.lat])[0];
+        })
+       .attr("cy", function(d) {
+			return self.projection([d.long, d.lat])[1];
+        })
+       .attr("r", function(d) {
+		   if (dataAttr == "qty"){
+            return d.qty_bought/2;}
+
+            else if (dataAttr == "value"){
+            return d.value_bought/10;}
+       })
+       .style("fill-opacity", "0.3");; 
+       
+}
+)
+     
+};
 geocraft.home.renderArcs = function(api_url, dataAttr) {
     var self = this;
 
@@ -152,7 +191,8 @@ geocraft.home.renderArcs = function(api_url, dataAttr) {
         update
             .enter().append("path")
             .attr("d", function(d) { 
-                var arcPath = self.path(self.arc(d));
+				var asd = self.arc(d);
+                var arcPath = self.path(asd);
                 return d3_utils.wideArc(arcPath, 0, 1);
             })
             .style("fill-opacity", "1.0");
@@ -163,7 +203,7 @@ geocraft.home.renderArcs = function(api_url, dataAttr) {
             .exit()
             .transition()
             .duration(self.arcTransitionDuration)
-            .ease("quad")
+			.ease("quad")
             .attr("d", function(d) {
                 var arcPath = self.path(self.arc(d));
                 return d3_utils.wideArc(arcPath, 0, 1);
@@ -212,6 +252,7 @@ geocraft.home.selectTag = function(tag) {
     }
 
     this.renderArcs("sales_aggregates/links.json?tag=" + tag, dataAttr);
+   this.drawCircles("sales_aggregates/links.json?tag=" + tag, dataAttr);
 };
 
 geocraft.home.drawTable = function(response) {
