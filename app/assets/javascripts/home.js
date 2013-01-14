@@ -88,12 +88,27 @@ d3.json(api_url, function (response){
 			.data(array)
 			.enter()
 			.append("circle");
-        if (!selector){
-		var selector = svg.selectAll("circle");}
-        var ease = "quad-in-out"; 
-       
-       
-        selector
+		var selector = svg.selectAll("circle");
+        var ease = "quad-in-out";
+        
+       geocraft.home.circleSize(dataAttr, selector, ease);
+}
+)
+     
+};
+geocraft.home.circleSize = function (dataAttr, selector, ease)
+{
+	 	var self = this;
+	 	var svg = d3.select("svg"); 
+		if (!selector)
+	    {
+			selector = svg.selectAll("circle");
+		}
+		if (!ease)
+		{
+			ease = "quad-in-out";
+		}
+	    selector
         .transition()
         .duration(self.circleTransitionDuration)
         .ease(ease)
@@ -105,16 +120,12 @@ d3.json(api_url, function (response){
         })
        .attr("r", function(d) {
 		   if (dataAttr == "qty"){
-            return d.qty_bought/2;}
+            return d.qty_bought * 0.5;}
 
             else if (dataAttr == "value"){
-            return d.value_bought/10;}
+            return Math.sqrt(d.value_bought) * 1.75;}
        })
-       .style("fill-opacity", "0.3");; 
-       
-}
-)
-     
+       .style("fill-opacity", "0.3");;
 };
 geocraft.home.renderArcs = function(api_url, dataAttr) {
     var self = this;
